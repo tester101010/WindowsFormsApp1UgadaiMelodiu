@@ -192,6 +192,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "fParam";
             this.Text = "SettingsForm";
+            this.Load += new System.EventHandler(this.fParam_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

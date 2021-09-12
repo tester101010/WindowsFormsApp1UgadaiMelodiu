@@ -84,6 +84,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "fMain";
             this.Text = "Угадай мелодию";
+            this.Load += new System.EventHandler(this.fMain_Load);
             this.ResumeLayout(false);
 
         }

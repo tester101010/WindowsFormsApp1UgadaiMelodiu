@@ -20,9 +20,17 @@ namespace WindowsFormsApp1UgadaiMelodiu
 
         public static void ReadMusic()
         {
-            string[] music_files = Directory.GetFiles(lastFolder, "*mp3", allDirectories ? System.IO.SearchOption.AllDirectories : System.IO.SearchOption.TopDirectoryOnly);
-            Victorina.list.Clear();
-            Victorina.list.AddRange(music_files);
+            try
+            {
+                string[] music_files = Directory.GetFiles(lastFolder, "*mp3", allDirectories ? System.IO.SearchOption.AllDirectories : System.IO.SearchOption.TopDirectoryOnly);
+                Victorina.list.Clear();
+                Victorina.list.AddRange(music_files);
+            }
+            catch //(Exception)
+            {
+
+                //throw;
+            }
             //listBox1.Items.Clear();
             //listBox1.Items.AddRange(music_list);
         }
