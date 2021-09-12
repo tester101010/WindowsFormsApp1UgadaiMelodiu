@@ -138,10 +138,9 @@
             // 
             this.cbGameDuration.FormattingEnabled = true;
             this.cbGameDuration.Items.AddRange(new object[] {
+            "15",
             "30",
-            "45",
             "60",
-            "90",
             "120",
             "180",
             "240",
@@ -151,6 +150,7 @@
             this.cbGameDuration.Size = new System.Drawing.Size(121, 21);
             this.cbGameDuration.TabIndex = 2;
             this.cbGameDuration.Text = "60";
+            this.cbGameDuration.SelectedIndexChanged += new System.EventHandler(this.cbGameDuration_SelectedIndexChanged);
             // 
             // cbMusicDuration
             // 

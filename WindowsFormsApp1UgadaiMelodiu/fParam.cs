@@ -70,5 +70,10 @@ namespace WindowsFormsApp1UgadaiMelodiu
             listBox1.Items.Clear();
             listBox1.Items.AddRange(Victorina.list.ToArray());
         }
+
+        private void cbGameDuration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
