@@ -14,6 +14,8 @@ namespace WindowsFormsApp1UgadaiMelodiu
     {
         Random rnd = new Random();
 
+        int musicDuration= Victorina.musicDuration;
+
         public FGame()
         {
             InitializeComponent();
@@ -21,11 +23,19 @@ namespace WindowsFormsApp1UgadaiMelodiu
 
         void MakeMusic()
         {
-            int n = rnd.Next(0, Victorina.list.Count);
-            WMP.URL = Victorina.list[n];
-            //WMP.Ctlcontrols.play();
-            Victorina.list.RemoveAt(n);
-            lblMelodyCount.Text = Victorina.list.Count.ToString();
+            if (Victorina.list.Count==0)
+            {
+                EndGame();
+            }
+            else
+            {
+                musicDuration = Victorina.musicDuration;
+                int n = rnd.Next(0, Victorina.list.Count);
+                WMP.URL = Victorina.list[n];
+                //WMP.Ctlcontrols.play();
+                Victorina.list.RemoveAt(n);
+                lblMelodyCount.Text = Victorina.list.Count.ToString();
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -62,28 +72,77 @@ namespace WindowsFormsApp1UgadaiMelodiu
             progressBar1.Value = 0;
             progressBar1.Minimum = 0;
             progressBar1.Maximum = Victorina.gameDuration;
+            lblMusicDuration.Text = musicDuration.ToString();
 
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             progressBar1.Value++;
+            musicDuration--;
+            lblMusicDuration.Text = musicDuration.ToString();
             if (progressBar1.Value == progressBar1.Maximum)
             {
-                timer1.Stop();
+                EndGame();
+                return;
             }
+            if (musicDuration ==0)
+            {
+                MakeMusic();
+            }
+        }
+
+        void EndGame()
+        {
+            timer1.Stop();
+            WMP.Ctlcontrols.stop();
         }
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
-            WMP.Ctlcontrols.pause();
+            GamePause();
         }
 
         private void btnContinue_Click(object sender, EventArgs e)
         {
+            GamePlayContinue();
+        }
+
+        private void FGame_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.A)
+            {
+                GamePause();
+                if (MessageBox.Show("Good answer ?", "Player 1",MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    lblCounter1.Text = Convert.ToString(Convert.ToInt32(lblCounter1.Text) + 1);
+                    MakeMusic();
+                }
+                GamePlayContinue();
+            }
+
+            if (e.KeyData == Keys.P)
+            {
+                GamePause();
+                if (MessageBox.Show("Good answer ?", "Player 2", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    lblCounter2.Text = Convert.ToString(Convert.ToInt32(lblCounter2.Text) + 1);
+                    MakeMusic();
+                }
+                GamePlayContinue();
+            }
+        }
+
+        private void GamePlayContinue()
+        {
             timer1.Start();
             WMP.Ctlcontrols.play();
+        }
+
+        void GamePause()
+        {
+            timer1.Stop();
+            WMP.Ctlcontrols.pause();
         }
     }
 }
